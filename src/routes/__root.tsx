@@ -78,10 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Invoxa is a premium invoicing and receipt platform for freelancers, studios and small businesses." },
       { name: "author", content: "Invoxa" },
       { property: "og:title", content: "Invoxa — Premium invoicing & receipts" },
-      { property: "og:description", content: "Send invoices, collect payments and issue receipts with calm, modern tooling." },
+      { property: "og:description", content: "Invoxa is a premium invoicing and receipt platform for freelancers, studios and small businesses." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Invoxa — Premium invoicing & receipts" },
+      { name: "twitter:description", content: "Invoxa is a premium invoicing and receipt platform for freelancers, studios and small businesses." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c6ce2d12-583d-447c-9d16-19e1bcb08c86/id-preview-d9e966c3--689a7c54-cb03-4500-a39d-fce8dced7331.lovable.app-1779665454236.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c6ce2d12-583d-447c-9d16-19e1bcb08c86/id-preview-d9e966c3--689a7c54-cb03-4500-a39d-fce8dced7331.lovable.app-1779665454236.png" },
     ],
     links: [
       {

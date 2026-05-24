@@ -7,9 +7,9 @@ export function AuthShell({ children, title, subtitle }: { children: ReactNode; 
     <div className="min-h-screen grid lg:grid-cols-2 bg-ivory">
       <div className="hidden lg:block relative overflow-hidden">
         <img src={heroImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, rgba(123,51,64,0.55), rgba(36,27,25,0.55))" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, rgba(92,35,48,0.78), rgba(28,20,18,0.82))" }} />
         <div className="relative h-full flex flex-col justify-between p-12 text-ivory">
-          <Logo to="/" />
+          <Logo to="/" light />
           <div className="max-w-md fade-up">
             <p className="text-xs tracking-[0.18em] uppercase opacity-70 mb-4">Invoxa · for independent professionals</p>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight" style={{ color: "var(--ivory)" }}>

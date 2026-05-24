@@ -11,7 +11,7 @@ export function LogoMark({ size = 32 }: { size?: number }) {
   );
 }
 
-export function Wordmark({ size = 22 }: { size?: number }) {
+export function Wordmark({ size = 22, light = false }: { size?: number; light?: boolean }) {
   return (
     <span
       style={{
@@ -19,20 +19,20 @@ export function Wordmark({ size = 22 }: { size?: number }) {
         fontSize: size,
         fontWeight: 600,
         letterSpacing: "-0.03em",
-        color: "var(--espresso)",
+        color: light ? "var(--ivory)" : "var(--espresso)",
         lineHeight: 1,
       }}
     >
-      Invo<span style={{ color: "var(--wine)" }}>xa</span>
+      Invo<span style={{ color: light ? "#E8B4BC" : "var(--wine)" }}>xa</span>
     </span>
   );
 }
 
-export function Logo({ to = "/dashboard", size = 28, word = 20 }: { to?: string; size?: number; word?: number }) {
+export function Logo({ to = "/dashboard", size = 28, word = 20, light = false }: { to?: string; size?: number; word?: number; light?: boolean }) {
   return (
     <Link to={to} className="inline-flex items-center gap-2.5 group">
       <LogoMark size={size} />
-      <Wordmark size={word} />
+      <Wordmark size={word} light={light} />
     </Link>
   );
 }

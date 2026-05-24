@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_app/invoices/")({
 function InvoicesPage() {
   const { state } = useStore();
   const nav = useNavigate();
-  const search = useSearch({ from: "/_app/invoices" });
+  const search = useSearch({ from: "/_app/invoices/" });
   const status = (search.status || "all") as InvoiceStatus | "all";
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<"new" | "amount" | "due">("new");

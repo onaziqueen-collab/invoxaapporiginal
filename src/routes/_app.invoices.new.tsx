@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Plus, Trash2, Save, Send, Download, ArrowLeft } from "lucide-react";
+import { Plus, Trash2, Save, Send, Download, ArrowLeft, Share2, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { useStore, type Invoice, type InvoiceItem } from "@/lib/store";
 import { InvoicePreview, printInvoice } from "@/lib/invoice-preview";
@@ -22,7 +22,8 @@ function NewInvoice() {
   const [items, setItems] = useState<InvoiceItem[]>([{ id: helpers.newId("it"), description: "", quantity: 1, rate: 0 }]);
   const [taxRate, setTaxRate] = useState(state.business.defaultTax || 0);
   const [notes, setNotes] = useState("Thank you for your partnership.");
-  const [paymentMethod, setPaymentMethod] = useState("Wire transfer");
+  const [paymentMethod, setPaymentMethod] = useState("Bank transfer");
+  const [showPreview, setShowPreview] = useState(false);
 
   // Inline client create
   const [newClientName, setNewClientName] = useState("");
@@ -65,12 +66,18 @@ function NewInvoice() {
     paymentMethod,
   }), [number, clientId, issueDate, dueDate, items, taxRate, notes, paymentMethod]);
 
-  function save(status: "draft" | "pending") {
+  function save(status: "draft" | "pending", thenShare = false) {
     if (!clientId) return toast.error("Pick a client first");
     if (items.every((i) => !i.description.trim())) return toast.error("Add at least one line item");
     const invoice: Invoice = { ...draft, id: helpers.newId("inv"), status };
     dispatch({ type: "ADD_INVOICE", invoice });
-    toast.success(status === "pending" ? "Invoice sent" : "Draft saved");
+    if (thenShare) {
+      const link = `${window.location.origin}/invoices/${invoice.id}`;
+      navigator.clipboard?.writeText(link);
+      toast.success("Invoice saved · share link copied");
+    } else {
+      toast.success(status === "pending" ? "Invoice sent" : "Draft saved");
+    }
     nav({ to: `/invoices/${invoice.id}` });
   }
 
@@ -79,8 +86,10 @@ function NewInvoice() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <button onClick={() => nav({ to: "/invoices" })} className="btn-ghost"><ArrowLeft className="w-4 h-4" /> Back</button>
         <div className="flex items-center gap-2">
+          <button onClick={() => setShowPreview(true)} className="btn-ghost lg:hidden"><Eye className="w-4 h-4" /> Preview</button>
           <button onClick={() => save("draft")} className="btn-ghost"><Save className="w-4 h-4" /> Save draft</button>
           <button onClick={printInvoice} className="btn-ghost"><Download className="w-4 h-4" /> Download PDF</button>
+          <button onClick={() => save("pending", true)} className="btn-ghost"><Share2 className="w-4 h-4" /> Save & share</button>
           <button onClick={() => save("pending")} className="btn-primary"><Send className="w-4 h-4" /> Send invoice</button>
         </div>
       </div>
@@ -132,9 +141,9 @@ function NewInvoice() {
             <Section label="Tax & payment">
               <div className="grid grid-cols-2 gap-3">
                 <Field label="Tax / VAT (%)"><input type="number" step="0.1" className="input-field" value={taxRate} onChange={(e) => setTaxRate(Number(e.target.value))} /></Field>
-                <Field label="Payment method">
+              <Field label="Payment method">
                   <select className="input-field" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                    <option>Wire transfer</option><option>Credit card</option><option>ACH</option><option>PayPal</option><option>Cash</option>
+                    <option>Bank transfer</option><option>Card (Paystack)</option><option>Card (Flutterwave)</option><option>USSD</option><option>Cash</option>
                   </select>
                 </Field>
               </div>
@@ -144,7 +153,7 @@ function NewInvoice() {
         </div>
 
         <div className="lg:col-span-3">
-          <div className="sticky top-24">
+          <div className="sticky top-24 hidden lg:block">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold tracking-[0.14em] uppercase text-mocha">Live preview</span>
               <span className="text-xs text-mocha">Updates as you type</span>
@@ -153,6 +162,17 @@ function NewInvoice() {
           </div>
         </div>
       </div>
+
+      {showPreview && (
+        <div className="fixed inset-0 z-50 bg-espresso/40 backdrop-blur-sm overflow-y-auto p-4" onClick={() => setShowPreview(false)}>
+          <div className="max-w-3xl mx-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-end mb-2">
+              <button onClick={() => setShowPreview(false)} className="btn-ghost bg-surface">Close preview</button>
+            </div>
+            <InvoicePreview invoice={draft} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

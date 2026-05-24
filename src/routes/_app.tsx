@@ -49,8 +49,9 @@ function AppLayout() {
           <div className="flex-1 flex justify-end md:justify-center">
             <div className="hidden md:block w-full max-w-md"><GlobalSearch /></div>
           </div>
-          <Link to="/invoices/new" className="btn-primary hidden sm:inline-flex">
-            <Plus className="w-4 h-4" /> New invoice
+          <Link to="/invoices/new" className="btn-primary inline-flex" aria-label="New invoice">
+            <Plus className="w-4 h-4" />
+            <span className="hidden sm:inline">New invoice</span>
           </Link>
           <div ref={menuRef} className="relative">
             <button onClick={() => setMenuOpen((v) => !v)} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-sand transition">

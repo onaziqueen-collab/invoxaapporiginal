@@ -74,8 +74,8 @@ const emptyBusiness: BusinessProfile = {
   email: "",
   address: "",
   taxId: "",
-  currency: "USD",
-  defaultTax: 0,
+  currency: "NGN",
+  defaultTax: 7.5,
 };
 
 function uid(prefix = "id") {
@@ -94,13 +94,13 @@ function isoDaysAgo(days: number) {
 
 function seededAlexState(): Omit<AppState, "user"> {
   const clients: Client[] = [
-    { id: "c_north", name: "Maya Okafor", company: "Northwind Studio", email: "maya@northwind.co", phone: "+1 415 555 0142", address: "221 Folsom St, San Francisco, CA" },
-    { id: "c_lumen", name: "Daniel Ferreira", company: "Lumen & Co.", email: "daniel@lumenco.io", phone: "+44 20 7946 0021", address: "12 Charlotte Rd, London EC2A" },
-    { id: "c_arlo", name: "Sienna Park", company: "Arlo Type Foundry", email: "sienna@arlotype.com", phone: "+1 718 555 0188", address: "55 Berry St, Brooklyn, NY" },
-    { id: "c_orbit", name: "Jules Marchetti", company: "Orbit Coffee Roasters", email: "jules@orbitcoffee.com", phone: "+39 02 5555 113", address: "Via Tortona 27, Milan" },
-    { id: "c_haven", name: "Priya Iyer", company: "Haven Wellness", email: "priya@havenwellness.co", phone: "+91 22 5555 1290", address: "Bandra West, Mumbai" },
-    { id: "c_meri", name: "Tomás Aguilar", company: "Meridian Bicycles", email: "tomas@meridianbikes.com", phone: "+34 93 555 7711", address: "Carrer de Pau Claris 88, Barcelona" },
-    { id: "c_kit", name: "Hannah Lindqvist", company: "Kit & Kiln Ceramics", email: "hannah@kitandkiln.se", phone: "+46 8 555 9821", address: "Götgatan 14, Stockholm" },
+    { id: "c_north", name: "Maya Okafor", company: "Northwind Studio", email: "maya@northwind.ng", phone: "+234 803 555 0142", address: "12 Adeola Odeku St, Victoria Island, Lagos" },
+    { id: "c_lumen", name: "Daniel Adeyemi", company: "Lumen & Co.", email: "daniel@lumenco.ng", phone: "+234 802 946 0021", address: "5 Bourdillon Rd, Ikoyi, Lagos" },
+    { id: "c_arlo", name: "Sienna Bello", company: "Arlo Type Foundry", email: "sienna@arlotype.ng", phone: "+234 818 555 0188", address: "27 Glover Rd, Ikoyi, Lagos" },
+    { id: "c_orbit", name: "Jules Eze", company: "Orbit Coffee Roasters", email: "jules@orbitcoffee.ng", phone: "+234 905 555 1130", address: "14 Awolowo Rd, Ikoyi, Lagos" },
+    { id: "c_haven", name: "Priya Olawale", company: "Haven Wellness", email: "priya@havenwellness.ng", phone: "+234 706 555 1290", address: "Plot 23 Wuse II, Abuja" },
+    { id: "c_meri", name: "Tomás Adebayo", company: "Meridian Bicycles", email: "tomas@meridianbikes.ng", phone: "+234 813 557 7711", address: "8 Allen Avenue, Ikeja, Lagos" },
+    { id: "c_kit", name: "Hannah Okonkwo", company: "Kit & Kiln Ceramics", email: "hannah@kitandkiln.ng", phone: "+234 809 555 9821", address: "19 Aba Rd, Port Harcourt" },
   ];
 
   const mk = (
@@ -121,7 +121,7 @@ function seededAlexState(): Omit<AppState, "user"> {
     taxRate: 8.5,
     notes: "Thank you for your partnership. Payment via wire or card accepted.",
     status,
-    paymentMethod: "Wire transfer",
+    paymentMethod: "Bank transfer",
     paidDate: paidAgo !== undefined ? isoDaysAgo(paidAgo) : undefined,
   });
 
@@ -130,18 +130,18 @@ function seededAlexState(): Omit<AppState, "user"> {
   });
 
   const invoices: Invoice[] = [
-    mk(127, "c_north", 2, 12, [item("Brand identity system — Q2 retainer", 1, 4800), item("Landing page revisions", 6, 180)], "pending"),
-    mk(126, "c_lumen", 6, 8, [item("Mobile app design sprint", 1, 6200), item("Prototype testing", 8, 145)], "pending"),
-    mk(125, "c_arlo", 14, -2, [item("Variable font production", 1, 3400)], "overdue"),
-    mk(124, "c_orbit", 24, -8, [item("E-commerce build — Phase 2", 1, 5200), item("Hosting setup", 1, 320)], "overdue"),
-    mk(123, "c_haven", 18, -10, [item("Wellness platform UI kit", 1, 4100)], "paid", 7),
-    mk(122, "c_meri", 31, -16, [item("Annual maintenance contract", 1, 7800)], "paid", 14),
-    mk(121, "c_kit", 45, -30, [item("Packaging design system", 1, 5600), item("Photography direction", 1, 1200)], "paid", 22),
-    mk(120, "c_north", 60, -45, [item("Brand identity system — Q1 retainer", 1, 4800)], "paid", 38),
-    mk(119, "c_lumen", 75, -60, [item("Design audit & strategy", 1, 3900)], "paid", 52),
-    mk(118, "c_orbit", 92, -77, [item("Original E-commerce build", 1, 9400)], "paid", 70),
-    mk(128, "c_arlo", 0, 14, [item("Specimen site refresh", 1, 2100)], "draft"),
-    mk(129, "c_haven", 1, 21, [item("Workshop landing page", 1, 1800)], "draft"),
+    mk(127, "c_north", 2, 12, [item("Brand identity system — Q2 retainer", 1, 2_400_000), item("Landing page revisions", 6, 90_000)], "pending"),
+    mk(126, "c_lumen", 6, 8, [item("Mobile app design sprint", 1, 3_100_000), item("Prototype testing", 8, 72_000)], "pending"),
+    mk(125, "c_arlo", 14, -2, [item("Variable font production", 1, 1_700_000)], "overdue"),
+    mk(124, "c_orbit", 24, -8, [item("E-commerce build — Phase 2", 1, 2_600_000), item("Hosting setup", 1, 160_000)], "overdue"),
+    mk(123, "c_haven", 18, -10, [item("Wellness platform UI kit", 1, 2_050_000)], "paid", 7),
+    mk(122, "c_meri", 31, -16, [item("Annual maintenance contract", 1, 3_900_000)], "paid", 14),
+    mk(121, "c_kit", 45, -30, [item("Packaging design system", 1, 2_800_000), item("Photography direction", 1, 600_000)], "paid", 22),
+    mk(120, "c_north", 60, -45, [item("Brand identity system — Q1 retainer", 1, 2_400_000)], "paid", 38),
+    mk(119, "c_lumen", 75, -60, [item("Design audit & strategy", 1, 1_950_000)], "paid", 52),
+    mk(118, "c_orbit", 92, -77, [item("Original E-commerce build", 1, 4_700_000)], "paid", 70),
+    mk(128, "c_arlo", 0, 14, [item("Specimen site refresh", 1, 1_050_000)], "draft"),
+    mk(129, "c_haven", 1, 21, [item("Workshop landing page", 1, 900_000)], "draft"),
   ];
 
   const receipts: Receipt[] = invoices
@@ -157,11 +157,11 @@ function seededAlexState(): Omit<AppState, "user"> {
 
   const business: BusinessProfile = {
     name: "Morgan Studio",
-    email: "hello@morganstudio.co",
-    address: "84 Grand Street, New York, NY 10013",
-    taxId: "EIN 88-1247991",
-    currency: "USD",
-    defaultTax: 8.5,
+    email: "hello@morganstudio.ng",
+    address: "84 Glover Road, Ikoyi, Lagos 101233",
+    taxId: "TIN 20881247-0001",
+    currency: "NGN",
+    defaultTax: 7.5,
   };
 
   return { business, clients, invoices, receipts };
@@ -316,13 +316,13 @@ export function useStore() {
   return ctx;
 }
 
-export function formatMoney(n: number, currency = "USD") {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency, maximumFractionDigits: 2 }).format(n || 0);
+export function formatMoney(n: number, currency = "NGN") {
+  return new Intl.NumberFormat("en-NG", { style: "currency", currency, maximumFractionDigits: 2 }).format(n || 0);
 }
 
 export function formatDate(iso: string) {
   if (!iso) return "—";
-  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return new Date(iso).toLocaleDateString("en-NG", { month: "short", day: "numeric", year: "numeric" });
 }
 
 export function statusMeta(s: InvoiceStatus) {

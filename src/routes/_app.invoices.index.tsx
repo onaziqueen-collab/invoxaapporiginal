@@ -5,7 +5,7 @@ import { useStore, formatMoney, formatDate, invoiceTotal, statusMeta, type Invoi
 
 type SearchParams = { status?: InvoiceStatus | "all" };
 
-export const Route = createFileRoute("/_app/invoices")({
+export const Route = createFileRoute("/_app/invoices/")({
   component: InvoicesPage,
   validateSearch: (s: Record<string, unknown>): SearchParams => ({
     status: (s.status as SearchParams["status"]) || "all",

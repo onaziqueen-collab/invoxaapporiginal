@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { useStore, formatMoney, formatDate } from "@/lib/store";
 
-export const Route = createFileRoute("/_app/receipts")({ component: ReceiptsPage });
+export const Route = createFileRoute("/_app/receipts/")({ component: ReceiptsPage });
 
 function ReceiptsPage() {
   const { state } = useStore();

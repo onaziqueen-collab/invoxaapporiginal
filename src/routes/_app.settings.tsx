@@ -43,7 +43,7 @@ function SettingsPage() {
             <Field label="Tax ID / EIN"><input className="input-field" value={biz.taxId} onChange={(e) => setBiz({ ...biz, taxId: e.target.value })} /></Field>
             <Field label="Default currency">
               <select className="input-field" value={biz.currency} onChange={(e) => setBiz({ ...biz, currency: e.target.value })}>
-                <option>USD</option><option>EUR</option><option>GBP</option><option>NGN</option><option>CAD</option><option>AUD</option>
+                <option>NGN</option><option>USD</option><option>EUR</option><option>GBP</option><option>GHS</option><option>ZAR</option>
               </select>
             </Field>
           </div>
@@ -66,7 +66,7 @@ function SettingsPage() {
         <div className="card-elev p-5 md:col-span-2 space-y-3">
           <SectionHeader title="Payment methods" subtitle="What clients can use to pay you." />
           <div className="grid grid-cols-2 gap-2 mt-3">
-            {["Wire transfer", "Credit card", "ACH", "PayPal", "Cash"].map((m) => (
+            {["Bank transfer", "Card (Paystack)", "Card (Flutterwave)", "USSD", "Cash"].map((m) => (
               <label key={m} className="flex items-center gap-2 p-3 rounded-lg border border-stone hover:border-blush text-sm cursor-pointer">
                 <input type="checkbox" defaultChecked className="accent-[var(--wine)]" /> {m}
               </label>

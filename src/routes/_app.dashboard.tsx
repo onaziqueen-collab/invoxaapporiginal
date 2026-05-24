@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ArrowUpRight, TrendingUp, Clock, CheckCircle2, AlertTriangle, FileText, Sparkles } from "lucide-react";
-import { useStore, formatMoney, formatDate, invoiceTotal, statusMeta, type InvoiceStatus } from "@/lib/store";
+import { useStore, formatMoney, formatDate, invoiceTotal, statusMeta } from "@/lib/store";
 import { RevenueChart } from "@/lib/charts";
 
 export const Route = createFileRoute("/_app/dashboard")({ component: Dashboard });
@@ -9,7 +9,6 @@ export const Route = createFileRoute("/_app/dashboard")({ component: Dashboard }
 function Dashboard() {
   const { state } = useStore();
   const nav = useNavigate();
-  const [statusFilter, setStatusFilter] = useState<InvoiceStatus | "all">("all");
 
   const active = state.invoices.filter((i) => !i.archived);
   const paid = active.filter((i) => i.status === "paid");
@@ -41,7 +40,6 @@ function Dashboard() {
   }, [paid]);
 
   const recent = [...active].sort((a, b) => (b.issueDate > a.issueDate ? 1 : -1)).slice(0, 6);
-  const filtered = statusFilter === "all" ? recent : active.filter((i) => i.status === statusFilter).slice(0, 6);
 
   const topClients = useMemo(() => {
     const map = new Map<string, number>();
@@ -86,7 +84,6 @@ function Dashboard() {
           value={formatMoney(totalRevenue, state.business.currency)}
           sub={`${paid.length} paid invoices`}
           icon={<TrendingUp className="w-4 h-4" />}
-          accent
           onClick={() => nav({ to: "/invoices", search: { status: "paid" } as never })}
         />
         <MetricCard
@@ -147,18 +144,13 @@ function Dashboard() {
               <h3 className="text-sm font-semibold text-espresso">Recently Updated</h3>
               <p className="text-xs text-mocha mt-0.5">Pick up where you left off</p>
             </div>
-            <div className="flex items-center gap-1 bg-sand rounded-lg p-1">
-              {(["all", "pending", "overdue", "paid", "draft"] as const).map((s) => (
-                <button key={s} onClick={() => setStatusFilter(s)}
-                  className={`px-2.5 py-1 rounded-md text-xs font-medium capitalize ${statusFilter === s ? "bg-surface text-espresso shadow-sm" : "text-mocha hover:text-espresso"}`}>
-                  {s}
-                </button>
-              ))}
-            </div>
+            <Link to="/invoices" className="text-xs text-wine inline-flex items-center gap-1 hover:underline">
+              View all <ArrowUpRight className="w-3 h-3" />
+            </Link>
           </div>
           <div className="divide-y divide-[var(--stone)]">
-            {filtered.length === 0 && <div className="py-10 text-center text-sm text-mocha">No invoices match this filter.</div>}
-            {filtered.map((i) => {
+            {recent.length === 0 && <div className="py-10 text-center text-sm text-mocha">Nothing here yet.</div>}
+            {recent.map((i) => {
               const c = state.clients.find((x) => x.id === i.clientId);
               const meta = statusMeta(i.status);
               return (

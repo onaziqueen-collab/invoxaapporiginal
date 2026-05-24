@@ -65,7 +65,7 @@ function ClientsPage() {
                       <div className="mt-3 text-sm font-semibold text-espresso">{c.company || c.name}</div>
                       {c.company && <div className="text-xs text-mocha">{c.name}</div>}
                     </div>
-                    <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition">
+                    <div className="flex gap-1">
                       <button onClick={() => { setEditing(c); setOpen(true); }} className="p-1.5 rounded-lg hover:bg-sand text-mocha"><Pencil className="w-3.5 h-3.5" /></button>
                       <button onClick={() => { dispatch({ type: "DELETE_CLIENT", id: c.id }); toast.success("Client removed"); }} className="p-1.5 rounded-lg hover:bg-sand text-mocha"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>

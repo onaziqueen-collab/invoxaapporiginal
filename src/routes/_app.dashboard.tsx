@@ -211,20 +211,19 @@ function Header({ business, userName }: { business: string; userName: string }) 
   );
 }
 
-function MetricCard({ label, value, sub, icon, accent, tone, onClick }:
-  { label: string; value: string; sub: string; icon: React.ReactNode; accent?: boolean; tone?: "warn"; onClick?: () => void }) {
+function MetricCard({ label, value, sub, icon, tone, onClick }:
+  { label: string; value: string; sub: string; icon: React.ReactNode; tone?: "warn"; onClick?: () => void }) {
   return (
-    <button onClick={onClick} className={`card-elev clickable text-left p-5 flex flex-col gap-3 ${accent ? "bg-wine text-ivory" : ""}`}
-      style={accent ? { background: "linear-gradient(135deg, var(--wine), var(--wine-deep))", color: "var(--ivory)", borderColor: "transparent" } : undefined}>
+    <button onClick={onClick} className="card-elev clickable text-left p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span className={`text-[10px] font-semibold tracking-[0.14em] uppercase ${accent ? "opacity-80" : "text-mocha"}`}>{label}</span>
-        <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${accent ? "bg-white/15" : tone === "warn" ? "bg-[oklch(0.95_0.05_25)] text-[var(--error)]" : "bg-sand text-wine"}`}>
+        <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-mocha">{label}</span>
+        <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${tone === "warn" ? "bg-[oklch(0.95_0.05_25)] text-[var(--error)]" : "bg-sand text-wine"}`}>
           {icon}
         </span>
       </div>
       <div>
-        <div className="text-2xl font-semibold tracking-tight">{value}</div>
-        <div className={`text-xs mt-1 ${accent ? "opacity-75" : "text-mocha"}`}>{sub}</div>
+        <div className="text-2xl font-semibold tracking-tight text-espresso">{value}</div>
+        <div className="text-xs mt-1 text-mocha">{sub}</div>
       </div>
     </button>
   );

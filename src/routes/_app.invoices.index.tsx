@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
-import { Plus, Filter } from "lucide-react";
+import { Search } from "lucide-react";
 import { useStore, formatMoney, formatDate, invoiceTotal, statusMeta, type InvoiceStatus } from "@/lib/store";
 
 type SearchParams = { status?: InvoiceStatus | "all" };
@@ -45,35 +45,32 @@ function InvoicesPage() {
 
   return (
     <div className="fade-up space-y-6">
-      <div className="flex items-end justify-between flex-wrap gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold text-espresso">Invoices</h1>
-          <p className="text-sm text-mocha mt-1">Track everything you've issued, in every state.</p>
-        </div>
-        <Link to="/invoices/new" className="btn-primary"><Plus className="w-4 h-4" /> New invoice</Link>
+      <div>
+        <h1 className="text-2xl font-semibold text-espresso">Invoices</h1>
+        <p className="text-sm text-mocha mt-1">Track everything you've issued, in every state.</p>
       </div>
 
       <div className="card-elev p-2">
-        <div className="flex items-center justify-between gap-3 px-2 py-2 flex-wrap">
-          <div className="flex items-center gap-1 overflow-x-auto scroll-hide">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 px-2 py-2">
+          <div className="flex items-center gap-1 overflow-x-auto scroll-hide -mx-1 px-1">
             {tabs.map((t) => (
               <button key={t.key} onClick={() => nav({ to: "/invoices", search: { status: t.key } })}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-2 ${status === t.key ? "bg-sand text-espresso" : "text-mocha hover:text-espresso"}`}>
+                className={`shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-2 ${status === t.key ? "bg-sand text-espresso" : "text-mocha hover:text-espresso hover:bg-sand/60"}`}>
                 {t.label}
-                <span className={`text-xs ${status === t.key ? "text-wine" : "text-mocha"}`}>{t.count}</span>
+                <span className="count-chip" data-active={status === t.key ? "true" : "false"}>{t.count}</span>
               </button>
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search invoices…" className="input-field py-2 text-sm w-56" />
-            <div className="relative">
-              <select value={sort} onChange={(e) => setSort(e.target.value as never)} className="input-field py-2 text-sm pr-8 appearance-none">
-                <option value="new">Newest</option>
-                <option value="amount">Amount</option>
-                <option value="due">Due date</option>
-              </select>
-              <Filter className="w-3.5 h-3.5 text-mocha absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="relative flex-1 lg:flex-initial lg:w-60">
+              <Search className="w-4 h-4 text-mocha absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search invoices…" className="input-field pl-9 py-2 text-sm" />
             </div>
+            <select value={sort} onChange={(e) => setSort(e.target.value as never)} className="input-field select-field py-2 text-sm w-auto">
+              <option value="new">Newest</option>
+              <option value="amount">Amount</option>
+              <option value="due">Due date</option>
+            </select>
           </div>
         </div>
 

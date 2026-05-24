@@ -214,6 +214,23 @@
 }
 .input-field::placeholder { color: var(--mocha); opacity: .6; }
 
+.select-field {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6a64' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+
+.count-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 999px; font-size: 10px; font-weight: 700;
+  background: var(--sand); color: var(--mocha);
+}
+.count-chip[data-active="true"] { background: var(--wine); color: var(--ivory); }
+
 .nav-link {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500;

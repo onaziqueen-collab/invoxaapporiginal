@@ -13,7 +13,6 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as AppRouteImport } from './routes/_app'
-import { Route as AppIndexRouteImport } from './routes/_app.index'
 import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppReceiptsRouteImport } from './routes/_app.receipts'
 import { Route as AppInvoicesRouteImport } from './routes/_app.invoices'
@@ -43,11 +42,6 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
 } as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
@@ -101,7 +95,7 @@ const AppInvoicesIdRoute = AppInvoicesIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppIndexRoute
+  '/': typeof AppRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
@@ -117,13 +111,13 @@ export interface FileRoutesByFullPath {
   '/receipts/': typeof AppReceiptsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof AppRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/clients': typeof AppClientsRoute
   '/dashboard': typeof AppDashboardRoute
   '/settings': typeof AppSettingsRoute
-  '/': typeof AppIndexRoute
   '/invoices/$id': typeof AppInvoicesIdRoute
   '/invoices/new': typeof AppInvoicesNewRoute
   '/receipts/$id': typeof AppReceiptsIdRoute
@@ -141,7 +135,6 @@ export interface FileRoutesById {
   '/_app/invoices': typeof AppInvoicesRouteWithChildren
   '/_app/receipts': typeof AppReceiptsRouteWithChildren
   '/_app/settings': typeof AppSettingsRoute
-  '/_app/': typeof AppIndexRoute
   '/_app/invoices/$id': typeof AppInvoicesIdRoute
   '/_app/invoices/new': typeof AppInvoicesNewRoute
   '/_app/receipts/$id': typeof AppReceiptsIdRoute
@@ -167,13 +160,13 @@ export interface FileRouteTypes {
     | '/receipts/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/forgot-password'
     | '/login'
     | '/signup'
     | '/clients'
     | '/dashboard'
     | '/settings'
-    | '/'
     | '/invoices/$id'
     | '/invoices/new'
     | '/receipts/$id'
@@ -190,7 +183,6 @@ export interface FileRouteTypes {
     | '/_app/invoices'
     | '/_app/receipts'
     | '/_app/settings'
-    | '/_app/'
     | '/_app/invoices/$id'
     | '/_app/invoices/new'
     | '/_app/receipts/$id'
@@ -234,13 +226,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_app/': {
-      id: '/_app/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
     }
     '/_app/settings': {
       id: '/_app/settings'
@@ -351,7 +336,6 @@ interface AppRouteChildren {
   AppInvoicesRoute: typeof AppInvoicesRouteWithChildren
   AppReceiptsRoute: typeof AppReceiptsRouteWithChildren
   AppSettingsRoute: typeof AppSettingsRoute
-  AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -360,7 +344,6 @@ const AppRouteChildren: AppRouteChildren = {
   AppInvoicesRoute: AppInvoicesRouteWithChildren,
   AppReceiptsRoute: AppReceiptsRouteWithChildren,
   AppSettingsRoute: AppSettingsRoute,
-  AppIndexRoute: AppIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -374,13 +357,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

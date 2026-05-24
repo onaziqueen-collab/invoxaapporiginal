@@ -148,24 +148,24 @@ function Dashboard() {
               View all <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
-          <div className="divide-y divide-[var(--stone)]">
+          <div className="space-y-2">
             {recent.length === 0 && <div className="py-10 text-center text-sm text-mocha">Nothing here yet.</div>}
             {recent.map((i) => {
               const c = state.clients.find((x) => x.id === i.clientId);
               const meta = statusMeta(i.status);
               return (
-                <Link key={i.id} to={`/invoices/${i.id}`} className="flex items-center gap-4 py-3.5 table-row -mx-2 px-2 rounded-lg">
-                  <div className="w-9 h-9 rounded-lg bg-sand flex items-center justify-center text-[10px] font-semibold text-wine">
-                    {(c?.company || c?.name || "??").slice(0, 2).toUpperCase()}
+                <Link key={i.id} to={`/invoices/${i.id}`} className="flex items-center gap-3 p-2 -mx-2 rounded-lg hover:bg-sand transition">
+                  <div className="w-8 h-8 rounded-full bg-[oklch(0.92_0.03_18)] text-wine text-[10px] font-semibold flex items-center justify-center shrink-0">
+                    {(c?.company || c?.name || "??").split(/\s+/).slice(0, 2).map((s) => s[0]).join("").toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-medium text-espresso truncate">{i.number} · {c?.company || c?.name}</div>
-                    <div className="text-xs text-mocha mt-0.5">Due {formatDate(i.dueDate)}</div>
+                    <div className="text-xs text-mocha mt-0.5 flex items-center gap-2">
+                      <span className={`badge-pill ${meta.cls}`}>{meta.label}</span>
+                      <span className="truncate">{formatMoney(invoiceTotal(i), state.business.currency)}</span>
+                    </div>
                   </div>
-                  <div className="text-right hidden sm:block">
-                    <div className="text-sm font-semibold text-espresso">{formatMoney(invoiceTotal(i), state.business.currency)}</div>
-                    <span className={`badge-pill ${meta.cls} mt-1`}>{meta.label}</span>
-                  </div>
+                  <div className="text-xs text-mocha shrink-0 text-right">{formatDate(i.issueDate)}</div>
                 </Link>
               );
             })}

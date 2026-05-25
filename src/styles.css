@@ -197,25 +197,27 @@
 }
 .btn-ghost:hover { background: var(--sand); border-color: var(--blush); }
 
-.input-field {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--stone);
-  border-radius: 10px;
-  padding-top: 11px;
-  padding-right: 14px;
-  padding-bottom: 11px;
-  padding-left: 14px;
-  font-size: 14px;
-  color: var(--espresso);
-  transition: border-color .15s ease, box-shadow .15s ease;
+@layer components {
+  .input-field {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--stone);
+    border-radius: 10px;
+    padding-top: 11px;
+    padding-right: 14px;
+    padding-bottom: 11px;
+    padding-left: 14px;
+    font-size: 14px;
+    color: var(--espresso);
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: var(--wine);
+    box-shadow: 0 0 0 3px oklch(0.42 0.105 18 / 0.12);
+  }
+  .input-field::placeholder { color: var(--mocha); opacity: .6; }
 }
-.input-field:focus {
-  outline: none;
-  border-color: var(--wine);
-  box-shadow: 0 0 0 3px oklch(0.42 0.105 18 / 0.12);
-}
-.input-field::placeholder { color: var(--mocha); opacity: .6; }
 
 .select-field {
   appearance: none;

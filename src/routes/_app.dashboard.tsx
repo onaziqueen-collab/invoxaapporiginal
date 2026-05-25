@@ -20,12 +20,14 @@ function Dashboard() {
   const overdueValue = overdue.reduce((s, i) => s + invoiceTotal(i), 0);
 
   const chartData = useMemo(() => {
-    const months = ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"];
     const now = new Date();
+    const order: { key: string; date: Date }[] = [];
     const buckets: Record<string, number> = {};
     for (let i = 11; i >= 0; i--) {
       const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      buckets[`${d.getFullYear()}-${d.getMonth()}`] = 0;
+      const k = `${d.getFullYear()}-${d.getMonth()}`;
+      buckets[k] = 0;
+      order.push({ key: k, date: d });
     }
     paid.forEach((inv) => {
       if (!inv.paidDate) return;
@@ -33,9 +35,10 @@ function Dashboard() {
       const k = `${d.getFullYear()}-${d.getMonth()}`;
       if (k in buckets) buckets[k] += invoiceTotal(inv);
     });
-    return Object.keys(buckets).map((k) => {
-      const m = parseInt(k.split("-")[1], 10);
-      return { label: months[m], value: Math.round(buckets[k]) };
+    return order.map(({ key, date }, idx) => {
+      const isCurrent = idx === order.length - 1;
+      const label = date.toLocaleDateString("en-US", { month: "short" }) + (isCurrent ? " (now)" : "");
+      return { label, value: Math.round(buckets[key]) };
     });
   }, [paid]);
 

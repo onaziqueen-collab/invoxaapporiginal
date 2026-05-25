@@ -61,16 +61,18 @@ function InvoicesPage() {
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2">
-            <div className="relative flex-1 lg:flex-initial lg:w-60">
-              <Search className="w-4 h-4 text-mocha absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search invoices…" className="input-field pl-10 py-2 text-sm" />
+          <div className="flex items-center gap-2 w-full lg:w-auto">
+            <div className="relative flex-1 lg:w-60 min-w-0">
+              <Search className="w-4 h-4 text-mocha absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search invoices…" className="input-field !pl-10 py-2 text-sm w-full" />
             </div>
-            <select value={sort} onChange={(e) => setSort(e.target.value as never)} className="input-field select-field py-2 text-sm w-auto">
-              <option value="new">Newest</option>
-              <option value="amount">Amount</option>
-              <option value="due">Due date</option>
-            </select>
+            <div className="relative shrink-0">
+              <select value={sort} onChange={(e) => setSort(e.target.value as never)} className="input-field select-field py-2 text-sm w-auto">
+                <option value="new">Newest</option>
+                <option value="amount">Amount</option>
+                <option value="due">Due date</option>
+              </select>
+            </div>
           </div>
         </div>
 

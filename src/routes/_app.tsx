@@ -38,7 +38,7 @@ function AppLayout() {
   return (
     <div className="min-h-screen bg-ivory">
       <header className="sticky top-0 z-40 bg-ivory/85 backdrop-blur-md border-b border-stone no-print">
-        <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center gap-6">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center gap-3 sm:gap-6">
           <Logo to="/dashboard" />
           <nav className="hidden md:flex items-center gap-1 ml-4">
             {nav.map((n) => (
@@ -82,7 +82,7 @@ function AppLayout() {
             )}
           </div>
         </div>
-        <div className="md:hidden px-6 pb-3 flex items-center gap-2">
+        <div className="md:hidden px-4 sm:px-6 pb-3 flex items-center gap-2">
           <div className="flex-1"><GlobalSearch /></div>
         </div>
         <div className="md:hidden border-t border-stone px-2 flex overflow-x-auto scroll-hide">
@@ -93,7 +93,7 @@ function AppLayout() {
           ))}
         </div>
       </header>
-      <main className="max-w-[1400px] mx-auto px-6 py-8">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <Outlet />
       </main>
     </div>

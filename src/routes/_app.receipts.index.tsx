@@ -27,8 +27,8 @@ function ReceiptsPage() {
 
       <div className="card-elev p-5">
         <div className="relative max-w-md mb-5">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-mocha" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search receipts…" className="input-field pl-10" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-mocha z-10 pointer-events-none" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search receipts…" className="input-field !pl-10 w-full" />
         </div>
 
         {list.length === 0 ? (

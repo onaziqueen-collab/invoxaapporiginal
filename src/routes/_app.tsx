@@ -4,6 +4,7 @@ import { ChevronDown, LogOut, Settings as SettingsIcon, User as UserIcon, Plus }
 import { useStore } from "@/lib/store";
 import { Logo } from "@/lib/logo";
 import { GlobalSearch } from "@/lib/global-search";
+import { NotificationsBell } from "@/lib/notifications";
 
 export const Route = createFileRoute("/_app")({ component: AppLayout });
 
@@ -53,6 +54,7 @@ function AppLayout() {
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">New invoice</span>
           </Link>
+          <NotificationsBell />
           <div ref={menuRef} className="relative">
             <button onClick={() => setMenuOpen((v) => !v)} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-sand transition">
               <div className="w-8 h-8 rounded-full gradient-wine text-ivory flex items-center justify-center text-xs font-semibold">

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Bell, AlertCircle, CheckCircle2, FileText, Receipt as RcpIcon, Settings as SettingsIcon } from "lucide-react";
+import { Bell, AlertCircle, CheckCircle2, FileText, Settings as SettingsIcon } from "lucide-react";
 import { useStore, formatDate, formatMoney, invoiceTotal } from "@/lib/store";
 
 type Item = {
@@ -146,6 +146,3 @@ function IconFor({ kind }: { kind: Item["kind"] }) {
   if (kind === "draft") return <span className="w-7 h-7 rounded-full bg-sand text-mocha flex items-center justify-center"><FileText className={base} /></span>;
   return <span className="w-7 h-7 rounded-full bg-[oklch(0.93_0.03_18)] text-wine flex items-center justify-center"><SettingsIcon className={base} /></span>;
 }
-
-// avoid unused warnings
-void RcpIcon;

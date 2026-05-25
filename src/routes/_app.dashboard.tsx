@@ -122,7 +122,7 @@ function Dashboard() {
               View all <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
-          <RevenueChart data={chartData} />
+          <RevenueChart data={chartData} currency={state.business.currency} />
         </div>
         <div className="card-elev p-6">
           <h3 className="text-sm font-semibold text-espresso">Invoice Pipeline</h3>
@@ -204,7 +204,7 @@ function Header({ business, userName }: { business: string; userName: string }) 
     <div className="flex items-end justify-between flex-wrap gap-4">
       <div>
         <p className="text-xs text-mocha tracking-wider uppercase">{today}</p>
-        <h1 className="text-3xl font-semibold text-espresso mt-1">Good to see you, {userName.split(" ")[0]}.</h1>
+        <h1 className="text-2xl sm:text-3xl font-semibold text-espresso mt-1">Good to see you, {userName.split(" ")[0]}.</h1>
         <p className="text-sm text-mocha mt-1">Here's what's happening at {business || "your studio"} today.</p>
       </div>
     </div>
@@ -214,16 +214,16 @@ function Header({ business, userName }: { business: string; userName: string }) 
 function MetricCard({ label, value, sub, icon, tone, onClick }:
   { label: string; value: string; sub: string; icon: React.ReactNode; tone?: "warn"; onClick?: () => void }) {
   return (
-    <button onClick={onClick} className="card-elev clickable text-left p-5 flex flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-mocha">{label}</span>
-        <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${tone === "warn" ? "bg-[oklch(0.95_0.05_25)] text-[var(--error)]" : "bg-sand text-wine"}`}>
+    <button onClick={onClick} className="card-elev clickable text-left p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3 min-w-0">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-mocha truncate">{label}</span>
+        <span className={`w-7 h-7 shrink-0 rounded-lg flex items-center justify-center ${tone === "warn" ? "bg-[oklch(0.95_0.05_25)] text-[var(--error)]" : "bg-sand text-wine"}`}>
           {icon}
         </span>
       </div>
-      <div>
-        <div className="text-2xl font-semibold tracking-tight text-espresso">{value}</div>
-        <div className="text-xs mt-1 text-mocha">{sub}</div>
+      <div className="min-w-0">
+        <div className="text-lg sm:text-2xl font-semibold tracking-tight text-espresso truncate">{value}</div>
+        <div className="text-[11px] sm:text-xs mt-1 text-mocha truncate">{sub}</div>
       </div>
     </button>
   );
